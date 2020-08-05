@@ -91,7 +91,7 @@ def compute_objectness_loss(end_points):
     # objectness_mask: 0 if pred object center is in gray zone (DONOTCARE), 1 otherwise
     euclidean_dist1 = torch.sqrt(dist1+1e-6)
     objectness_label = torch.zeros((B,K), dtype=torch.long).cuda()
-    objectness_mask = torch.ones((B,K)).cuda()
+    objectness_mask = torch.zeros((B,K)).cuda()
     objectness_label[euclidean_dist1<NEAR_THRESHOLD] = 1
     objectness_mask[euclidean_dist1<NEAR_THRESHOLD] = 1
     objectness_mask[euclidean_dist1>FAR_THRESHOLD] = 1
